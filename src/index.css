@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+:root {
+  --bg: #f8f9fa;
+  --bg-offset: #ffffff;
+  --ink: #202124;
+  --ink-dim: #5f6368;
+  --ink-muted: #80868b;
+  --line: #dadce0;
+  --accent: #1a73e8;
+  --panel: #ffffff;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+.technical-grid {
+  background-image: 
+    linear-gradient(to right, #e8eaed 1px, transparent 1px),
+    linear-gradient(to bottom, #e8eaed 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.glass-panel {
+  background: var(--bg-offset);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,.30), 0 1px 3px 1px rgba(60,64,67,.15);
+}
+
+.minimal-badge {
+  background: #f1f3f4;
+  border: 1px solid #dadce0;
+  color: #3c4043;
+  font-family: var(--f-mono);
+}

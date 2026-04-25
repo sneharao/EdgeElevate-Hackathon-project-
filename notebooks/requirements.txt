@@ -1,0 +1,21 @@
+# EdgeElevate Notebook Dependencies
+
+# Core dependencies
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Jupyter notebook support
+jupyter>=1.0.0
+ipykernel>=6.28.0
+notebook>=7.0.6
+
+# Data handling
+pandas>=2.2.2
+
+# Optional: For enhanced data visualization in reports
+matplotlib>=3.8.2
+seaborn>=0.13.0
+plotly>=5.18.0
+
+# API clients (optional - for enhanced integration)
+openai>=1.7.0  # Can be used with OpenRouter

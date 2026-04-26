@@ -15,7 +15,50 @@ The system operates as a **directed acyclic graph (DAG)** powered by LangGraph, 
 | **Stage 3: Analyzing Gaps**     | `compute_displacement_scores`, `analyze_narrative`, `map_source_gaps`, `analyze_chats`                                          | Synthesis of raw data into proprietary competitive displacement scores. |
 | **Stage 4: Generating Content** | `generate_content_opportunities`, `generate_positioning`, `generate_linkedin_posts`, `generate_video_script`, `assemble_report` | Multi-format content generation and final executive report assembly.    |
 
-![Langraph node archietecture](graph.png)
+### System Orchestration Flow
+
+```mermaid
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([START]):::first
+	resolve_project(resolve_project)
+	fetch_brand_intelligence(fetch_brand_intelligence)
+	fetch_source_intelligence(fetch_source_intelligence)
+	fetch_actions(fetch_actions)
+	analyze_chats(analyze_chats)
+	compute_displacement_scores(compute_displacement_scores)
+	analyze_narrative(analyze_narrative)
+	map_source_gaps(map_source_gaps)
+	generate_content_opportunities(generate_content_opportunities)
+	generate_positioning(generate_positioning)
+	generate_linkedin_posts(generate_linkedin_posts)
+	generate_video_script(generate_video_script)
+	assemble_report(assemble_report)
+	__end__([END]):::last
+	__start__ --> resolve_project;
+	analyze_chats --> compute_displacement_scores;
+	analyze_narrative --> map_source_gaps;
+	compute_displacement_scores --> analyze_narrative;
+	fetch_actions --> analyze_chats;
+	fetch_brand_intelligence --> analyze_chats;
+	fetch_source_intelligence --> analyze_chats;
+	generate_content_opportunities --> generate_positioning;
+	generate_linkedin_posts --> generate_video_script;
+	generate_positioning --> generate_linkedin_posts;
+	generate_video_script --> assemble_report;
+	map_source_gaps --> generate_content_opportunities;
+	resolve_project -.-> fetch_actions;
+	resolve_project -.-> fetch_brand_intelligence;
+	resolve_project -.-> fetch_source_intelligence;
+	assemble_report --> __end__;
+	classDef default fill:#1e2020,stroke:#adc6ff,color:#e2e2e2
+	classDef first fill:#121414,stroke:#4ade80,color:#4ade80
+	classDef last fill:#121414,stroke:#ffb4ab,color:#ffb4ab
+```
 
 **Tech Stack**: React 19, TypeScript, Tailwind • Python 3.11, FastAPI, LangGraph • Gemini 2.5 Flash • Peec AI • @nivo • Langfuse
 

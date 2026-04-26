@@ -78,7 +78,7 @@ export default function App() {
                 <Zap className="text-[var(--color-on-primary)]" size={28} fill="currentColor" />
               </div>
               <h1 className="text-4xl font-light tracking-tight text-[var(--ink)]">
-                EdgeElevate <span className="text-[var(--ink-muted)] font-thin">/ displacement engine</span>
+                EdgeElevate <span className="text-[var(--ink-muted)] font-thin">/ Competitive Intelligence, Orchestrated for Distribution</span>
               </h1>
             </motion.div>
 
@@ -118,14 +118,14 @@ export default function App() {
                   <div className="flex gap-6">
                     <div className="flex items-center gap-2">
                       <span className="status-dot status-dot-success status-dot-pulse"></span>
-                      <span className="text-[10px] text-[var(--ink-muted)] font-mono uppercase tracking-widest">Engine Online</span>
+                      <span className="text-xs text-[var(--ink-muted)] font-mono uppercase tracking-widest">Engine Online</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="status-dot status-dot-primary"></span>
-                      <span className="text-[10px] text-[var(--ink-muted)] font-mono uppercase tracking-widest">Tracing v2.0 Active</span>
+                      <span className="text-xs text-[var(--ink-muted)] font-mono uppercase tracking-widest">Tracing v2.0 Active</span>
                     </div>
                   </div>
-                  <div className="minimal-badge text-[10px] uppercase tracking-widest px-2 py-0.5 rounded">BETA_RELEASE</div>
+                  <div className="minimal-badge text-xs uppercase tracking-widest px-2 py-0.5 rounded">BETA_RELEASE</div>
                 </div>
               </form>
             </motion.div>
@@ -151,13 +151,13 @@ export default function App() {
 
             {/* Example links */}
             <div className="mt-32 space-y-6 text-center">
-              <p className="text-[10px] text-[var(--ink-muted)] font-mono uppercase tracking-[0.4em]">Quick Analysis Nodes</p>
+              <p className="text-xs text-[var(--ink-muted)] font-mono uppercase tracking-[0.4em]">Quick Analysis Nodes</p>
               <div className="flex flex-wrap justify-center gap-8">
                 {['NOTHING', 'ATTIO', 'REVOLUT', 'BMW', 'MINDSPACE', 'LEGORA'].map((name) => (
                   <button
                     key={name}
                     onClick={() => setStartupName(name)}
-                    className="text-[11px] font-mono text-[var(--ink-muted)] hover:text-[var(--accent)] transition-colors uppercase tracking-[0.2em] border-b border-transparent hover:border-[var(--accent)] pb-1 cursor-pointer"
+                    className="text-sm font-mono text-[var(--ink-muted)] hover:text-[var(--accent)] transition-colors uppercase tracking-[0.2em] border-b border-transparent hover:border-[var(--accent)] pb-1 cursor-pointer"
                   >
                     {name}
                   </button>

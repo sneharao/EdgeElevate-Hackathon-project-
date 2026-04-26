@@ -1,5 +1,5 @@
 """
-EdgeElevate: Competitive Displacement Engine
+EdgeElevate: Competitive Intelligence Orchestrated for Distribution
 =============================================
 A LangGraph-powered workflow that uses Peec AI MCP to help early-stage brands
 win distribution against bigger competitors.
@@ -1582,7 +1582,7 @@ if __name__ == "__main__":
 
     startup = sys.argv[1] if len(sys.argv) > 1 else "Nothing Phone"
     print(f"\n{'='*60}")
-    print(f"  EdgeElevate: Competitive Displacement Engine")
+    print(f"  EdgeElevate: Competitive Intelligence Orchestrated for Distribution")
     print(f"  Analyzing: {startup}")
     print(f"{'='*60}\n")
 

@@ -46,16 +46,16 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
             <h1 className="text-xl font-light tracking-tight text-[var(--ink)]">
               EdgeElevate{" "}
               <span className="text-[var(--ink-muted)] font-thin">
-                / Engine Orchestration
+                / Intelligence Dashboard
               </span>
             </h1>
           </div>
         </div>
-        <div className="flex items-center gap-6 text-[10px] uppercase font-mono tracking-widest">
+        <div className="flex items-center gap-6 text-xs uppercase font-mono tracking-widest">
           <div className="flex items-center gap-2 px-3 py-1 surface-1 rounded-full">
             <span className="status-dot status-dot-primary status-dot-pulse"></span>
             <span className="text-[var(--ink-muted)]">
-              Displacement Solver Active
+              ACTIVE
             </span>
           </div>
         </div>
@@ -66,19 +66,19 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
         {/* Left Column: Context & Opps (3 cols) */}
         <section className="col-span-12 lg:col-span-3 flex flex-col gap-5 overflow-y-auto pr-2">
           <div className="glass-panel rounded-lg p-5">
-            <label className="label-md text-[var(--ink-muted)] mb-3 block text-[10px] uppercase tracking-widest">
+            <label className="label-md text-[var(--ink-muted)] mb-3 block text-xs uppercase tracking-widest">
               Analyzed Target Identity
             </label>
             <div className="text-2xl font-light text-[var(--ink)] mb-3">
               {startup_name}
             </div>
-            <p className="quote-block text-sm text-[var(--ink-dim)] leading-relaxed italic border-l-2 border-[var(--accent)] pl-4">
+            <p className="quote-block text-base text-[var(--ink-dim)] leading-relaxed italic border-l-2 border-[var(--accent)] pl-4">
               "{positioning_statement || `Analyzing competitive landscape for ${startup_name}`}"
             </p>
           </div>
 
           <div className="glass-panel rounded-lg p-5">
-            <label className="label-md text-[var(--ink-muted)] mb-4 block text-[10px] uppercase tracking-widest">
+            <label className="label-md text-[var(--ink-muted)] mb-4 block text-xs uppercase tracking-widest">
               Content Opportunities
             </label>
             <div className="space-y-3">
@@ -87,8 +87,8 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
                   key={i}
                   className="p-3 surface-1 rounded-lg border-l-2 border-[var(--accent-cyan)]/40"
                 >
-                  <p className="text-xs font-medium text-[var(--ink)] mb-1">{opp.title}</p>
-                  <p className="text-[10px] text-[var(--ink-dim)] line-clamp-2">{opp.topic}</p>
+                  <p className="text-sm font-medium text-[var(--ink)] mb-1">{opp.title}</p>
+                  <p className="text-xs text-[var(--ink-dim)] line-clamp-2">{opp.topic}</p>
                 </div>
               ))}
             </div>
@@ -96,7 +96,7 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
 
           {/* Sources to Focus On - Moved here */}
           <div className="glass-panel rounded-lg p-5 flex flex-col flex-1 min-h-[300px]">
-            <label className="label-md text-[var(--ink-muted)] mb-3 block text-[10px] uppercase tracking-widest">
+            <label className="label-md text-[var(--ink-muted)] mb-3 block text-xs uppercase tracking-widest">
               Sources to Focus On
             </label>
             <div className="flex-1 overflow-y-auto pr-1 custom-scrollbar">
@@ -112,10 +112,10 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
           {/* Top: Wide Battlefield Quadrant */}
           <div className="glass-panel rounded-lg p-5 h-[480px] flex flex-col shrink-0">
             <div className="flex justify-between items-center mb-4">
-              <label className="label-md text-[var(--ink-muted)] block uppercase tracking-widest text-[10px]">
+              <label className="label-md text-[var(--ink-muted)] block uppercase tracking-widest text-xs">
                 Market Battlefield Quadrant
               </label>
-              <div className="tag-primary text-[10px] font-mono px-2 py-0.5 rounded shadow-sm glow-primary">
+              <div className="tag-primary text-xs font-mono px-2 py-0.5 rounded shadow-sm glow-primary">
                 STRATEGIC_MAPPING
               </div>
             </div>
@@ -139,8 +139,8 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
           <div className="grid grid-cols-12 gap-5 h-[400px] shrink-0">
             {/* HERA Video Engine */}
             <div className="col-span-6 glass-panel rounded-lg p-5 flex flex-col">
-              <label className="label-md text-[var(--ink-muted)] mb-3 block text-[10px] uppercase tracking-widest">
-                HERA Visual Narrative
+              <label className="text-sm font-bold tracking-widest uppercase text-[var(--ink)] mb-4 block">
+                Visual Narrative
               </label>
               <div className="video-placeholder aspect-video rounded-lg overflow-hidden relative group cursor-pointer mb-3 shrink-0">
                 <div className="absolute inset-0 flex items-center justify-center bg-[var(--accent)]/5 group-hover:bg-[var(--accent)]/10 transition-colors">
@@ -152,11 +152,11 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
               <div className="surface-1 rounded-lg p-3 overflow-y-auto flex-1 mb-3">
                 {video_script && !("parse_error" in video_script) ? (
                   <div className="space-y-2">
-                    <h3 className="text-xs font-semibold text-[var(--ink)]">{video_script.title}</h3>
-                    <p className="text-[10px] text-[var(--ink-dim)]">{video_script.description}</p>
+                    <h3 className="text-base font-bold text-[var(--ink)]">{video_script.title}</h3>
+                    <p className="text-xs text-[var(--ink-dim)]">{video_script.description}</p>
                   </div>
                 ) : (
-                  <div className="text-[10px] text-[var(--ink-dim)] italic">Synthesizing narrative flow...</div>
+                  <div className="text-xs text-[var(--ink-dim)] italic">Synthesizing narrative flow...</div>
                 )}
               </div>
               <button className="btn-primary py-2 rounded-lg text-xs w-full flex items-center justify-center gap-2">
@@ -167,7 +167,7 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
 
             {/* Social Feed */}
             <div className="col-span-6 glass-panel rounded-lg p-5 flex flex-col overflow-hidden">
-              <label className="label-md text-[var(--ink-muted)] mb-3 block text-[10px] uppercase tracking-widest">
+              <label className="text-sm font-bold tracking-widest uppercase text-[var(--ink)] mb-3 block">
                 Social Feed Ideas
               </label>
               <div className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
@@ -185,16 +185,16 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
                         <Linkedin size={10} />
                       </div>
                       <div className="flex justify-between items-center mb-2 pr-6">
-                        <span className="text-[9px] font-mono text-[var(--accent)]">NODE_{i + 1}</span>
+                        <span className="text-[10px] font-mono text-[var(--accent)]">NODE_{i + 1}</span>
                       </div>
-                      <p className="text-[11px] font-bold text-[var(--ink)] mb-2">{post.hook}</p>
-                      <p className={`text-[10px] text-[var(--ink-dim)] leading-relaxed transition-all duration-300 ${
+                      <p className="text-base font-bold text-[var(--ink)] mb-2">{post.hook}</p>
+                      <p className={`text-xs text-[var(--ink-dim)] leading-relaxed transition-all duration-300 ${
                         isExpanded ? '' : 'line-clamp-3'
                       }`}>
                         {post.body}
                       </p>
                       <div className="mt-2 flex justify-end">
-                        <span className="text-[9px] font-bold text-[var(--accent)] uppercase tracking-wider flex items-center gap-1">
+                        <span className="text-[10px] font-bold text-[var(--accent)] uppercase tracking-wider flex items-center gap-1">
                           {isExpanded ? 'Show less' : 'Read more'}
                         </span>
                       </div>
@@ -208,7 +208,7 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
       </main>
 
       {/* Status Bar */}
-      <footer className="dashboard-footer flex items-center px-8 text-[10px] text-[var(--ink-muted)] justify-between font-mono tracking-widest shrink-0 z-10">
+      <footer className="dashboard-footer flex items-center px-8 text-xs text-[var(--ink-muted)] justify-between font-mono tracking-widest shrink-0 z-10">
         <div className="flex gap-8">
           <span className="flex items-center gap-2">
             <div className="status-dot status-dot-primary" /> ENGINE_VER: EDGE_ELEVATE_X_2.4
@@ -217,7 +217,7 @@ export function Dashboard({ data }: { data: EdgeElevateResponse }) {
         <div className="flex gap-8 uppercase">
           <span className="text-[var(--line)]">BETA_INTERNAL_SCRAPE</span>
           <span className="flex items-center gap-2 text-[var(--ink)]">
-            <div className="status-dot status-dot-primary status-dot-pulse" /> SOLVER_ONLINE
+            <div className="status-dot status-dot-primary status-dot-pulse" /> SYSTEM_READY
           </span>
         </div>
       </footer>

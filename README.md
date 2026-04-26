@@ -1,6 +1,6 @@
 # EdgeElevate
 
-> AI-powered competitive displacement engine for startups to identify narrative gaps and amplify market presence using LangGraph and Peec AI.
+> AI-powered Competitive Intelligence, Orchestrated for Distribution for startups to identify narrative gaps and amplify market presence using LangGraph and Peec AI.
 
 EdgeElevate is a sophisticated intelligence platform that analyzes your competitive landscape, identifies strategic positioning gaps, and generates data-driven content to help early-stage brands win distribution against larger competitors.
 

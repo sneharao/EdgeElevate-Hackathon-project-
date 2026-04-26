@@ -70,7 +70,7 @@ export function HeraVideoPlayer({ videoScript, brandName }: HeraVideoPlayerProps
 
   return (
     <div className="glass-panel rounded-lg p-5">
-      <label className="label-md text-[var(--ink-muted)] mb-3 block">
+      <label className="text-sm font-bold tracking-widest uppercase text-[var(--ink)] mb-4 block">
         HERA Visual Narrative Engine
       </label>
 
@@ -99,33 +99,33 @@ export function HeraVideoPlayer({ videoScript, brandName }: HeraVideoPlayerProps
         )}
         <div className="absolute top-4 left-4 flex items-center gap-2 px-2 py-1 surface-1 backdrop-blur rounded-lg">
           <div className={`status-dot ${isGenerating ? "status-dot-warning" : "status-dot-primary"}`}></div>
-          <div className="text-[10px] text-[var(--ink-muted)] font-mono font-bold">
+          <div className="text-xs text-[var(--ink-muted)] font-mono font-bold">
             {isGenerating ? "RENDERING" : videoUrl ? "READY" : "SIM_ACTIVE"}
           </div>
         </div>
         <div className="absolute bottom-4 left-4">
-          <div className="tag-primary text-[10px] px-3 py-1.5 rounded-lg font-bold uppercase font-mono tracking-widest">
+          <div className="tag-primary text-xs px-3 py-1.5 rounded-lg font-bold uppercase font-mono tracking-widest">
             CEO_SCRIPT_DRAFTER
           </div>
         </div>
       </div>
 
       {/* Video Script Display */}
-      <div className="surface-1 rounded-lg p-3 overflow-y-auto max-h-[120px] mb-3">
+      <div className="surface-1 rounded-lg p-4 overflow-y-auto max-h-[150px] mb-4">
         {videoScript && !("parse_error" in videoScript) ? (
-          <div className="space-y-2">
-            <h3 className="text-xs font-semibold text-[var(--ink)]">
+          <div className="space-y-3">
+            <h3 className="text-base font-bold text-[var(--ink)] tracking-tight">
               {videoScript.title}
             </h3>
-            <p className="text-[10px] text-[var(--ink-dim)] line-clamp-2">
+            <p className="text-sm text-[var(--ink-dim)] leading-relaxed line-clamp-3">
               {videoScript.description}
             </p>
-            <div className="text-[9px] text-[var(--ink-muted)] font-mono">
+            <div className="text-[10px] text-[var(--ink-muted)] font-mono">
               Duration: {videoScript.duration_minutes} min
             </div>
           </div>
         ) : (
-          <div className="text-[10px] text-[var(--ink-dim)] italic">
+          <div className="text-xs text-[var(--ink-dim)] italic">
             Synthesizing executive narrative flow...
           </div>
         )}

@@ -49,7 +49,7 @@ export function AINarrative({ data, brandName }: AINarrativeProps) {
             <h2 className="text-sm font-bold tracking-widest uppercase text-[var(--ink)]">
               AI Brand Narrative Analysis
             </h2>
-            <p className="text-[10px] text-[var(--ink-muted)] font-mono">
+            <p className="text-xs text-[var(--ink-muted)] font-mono">
               TARGET_BRAND: {brandName.toUpperCase()}
             </p>
           </div>
@@ -60,11 +60,11 @@ export function AINarrative({ data, brandName }: AINarrativeProps) {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-[var(--accent-cyan)] mb-2">
               <CheckCircle2 size={14} />
-              <span className="text-[10px] font-bold uppercase tracking-wider">Positive Patterns</span>
+              <span className="text-xs font-bold uppercase tracking-wider">Positive Patterns</span>
             </div>
             <ul className="space-y-2">
               {own_brand_framing.positive_patterns.map((p, i) => (
-                <motion.li key={i} variants={itemVariants} className="text-[11px] text-[var(--ink-dim)] leading-relaxed pl-4 border-l border-[var(--accent-cyan)]/20 italic">
+                <motion.li key={i} variants={itemVariants} className="text-sm text-[var(--ink-dim)] leading-relaxed pl-4 border-l border-[var(--accent-cyan)]/20 italic">
                   "{p}"
                 </motion.li>
               ))}
@@ -75,11 +75,11 @@ export function AINarrative({ data, brandName }: AINarrativeProps) {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-rose-500 mb-2">
               <AlertCircle size={14} />
-              <span className="text-[10px] font-bold uppercase tracking-wider">Negative Patterns</span>
+              <span className="text-xs font-bold uppercase tracking-wider">Negative Patterns</span>
             </div>
             <ul className="space-y-2">
               {own_brand_framing.negative_patterns.map((p, i) => (
-                <motion.li key={i} variants={itemVariants} className="text-[11px] text-[var(--ink-dim)] leading-relaxed pl-4 border-l border-rose-500/20 italic">
+                <motion.li key={i} variants={itemVariants} className="text-sm text-[var(--ink-dim)] leading-relaxed pl-4 border-l border-rose-500/20 italic">
                   "{p}"
                 </motion.li>
               ))}
@@ -90,11 +90,11 @@ export function AINarrative({ data, brandName }: AINarrativeProps) {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-blue-500 mb-2">
               <Info size={14} />
-              <span className="text-[10px] font-bold uppercase tracking-wider">Factual Stuff</span>
+              <span className="text-xs font-bold uppercase tracking-wider">Factual Stuff</span>
             </div>
             <ul className="space-y-2">
               {own_brand_framing.neutral_descriptors.map((p, i) => (
-                <motion.li key={i} variants={itemVariants} className="text-[11px] text-[var(--ink-dim)] leading-relaxed pl-4 border-l border-blue-500/20">
+                <motion.li key={i} variants={itemVariants} className="text-sm text-[var(--ink-dim)] leading-relaxed pl-4 border-l border-blue-500/20">
                   {p}
                 </motion.li>
               ))}
@@ -105,11 +105,11 @@ export function AINarrative({ data, brandName }: AINarrativeProps) {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-amber-500 mb-2">
               <Ghost size={14} />
-              <span className="text-[10px] font-bold uppercase tracking-wider">AI Narrative Gaps</span>
+              <span className="text-xs font-bold uppercase tracking-wider">AI Narrative Gaps</span>
             </div>
             <ul className="space-y-2">
               {own_brand_framing.missing_narratives.map((p, i) => (
-                <motion.li key={i} variants={itemVariants} className="text-[11px] text-[var(--ink-dim)] leading-relaxed pl-4 border-l border-amber-500/20 italic">
+                <motion.li key={i} variants={itemVariants} className="text-sm text-[var(--ink-dim)] leading-relaxed pl-4 border-l border-amber-500/20 italic">
                   "{p}"
                 </motion.li>
               ))}
@@ -119,7 +119,7 @@ export function AINarrative({ data, brandName }: AINarrativeProps) {
 
         {/* Strategic Reframe */}
         <div className="mt-8 p-5 surface-1 rounded-xl border-l-4 border-[var(--accent)] bg-gradient-to-r from-[var(--accent)]/5 to-transparent relative z-10">
-          <label className="text-[9px] font-bold text-[var(--accent)] uppercase tracking-[0.2em] mb-2 block">
+          <label className="text-[10px] font-bold text-[var(--accent)] uppercase tracking-[0.2em] mb-2 block">
             The Shift in Brand's Market Position
           </label>
           <div className="prose prose-invert max-w-none text-xs text-[var(--ink)] leading-relaxed italic opacity-90">

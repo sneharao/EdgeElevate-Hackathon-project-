@@ -47,19 +47,19 @@ export function BattlefieldQuadrant({ data }: BattlefieldQuadrantProps) {
         <div className="flex gap-4">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)]" />
-            <span className="text-[9px] text-[var(--ink-muted)] font-bold uppercase tracking-widest">High Opportunity</span>
+            <span className="text-xs text-[var(--ink-muted)] font-bold uppercase tracking-widest">High Opportunity</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.6)]" />
-            <span className="text-[9px] text-[var(--ink-muted)] font-bold uppercase tracking-widest">Med Opportunity</span>
+            <span className="text-xs text-[var(--ink-muted)] font-bold uppercase tracking-widest">Med Opportunity</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-white/20" />
-            <span className="text-[9px] text-[var(--ink-muted)] font-bold uppercase tracking-widest">Low Opportunity</span>
+            <span className="text-xs text-[var(--ink-muted)] font-bold uppercase tracking-widest">Low Opportunity</span>
           </div>
         </div>
-        <div className="text-[9px] text-[var(--accent-cyan)] font-mono flex items-center gap-1.5 bg-[var(--accent-cyan)]/5 border border-[var(--accent-cyan)]/20 px-2 py-0.5 rounded shadow-sm">
-          <Info size={10} /> <span className="uppercase tracking-tight font-black text-[8px]">Hover for Radar Data</span>
+        <div className="text-xs text-[var(--accent-cyan)] font-mono flex items-center gap-1.5 bg-[var(--accent-cyan)]/5 border border-[var(--accent-cyan)]/20 px-2 py-0.5 rounded shadow-sm">
+          <Info size={10} /> <span className="uppercase tracking-tight font-black text-[10px]">Hover for Radar Data</span>
         </div>
       </div>
 
@@ -92,14 +92,14 @@ export function BattlefieldQuadrant({ data }: BattlefieldQuadrantProps) {
               {/* Axis Value Badges */}
               <motion.div 
                 initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}
-                className="absolute bottom-[2%] left-[activePoint.x%] -translate-x-1/2 bg-white text-black text-[8px] font-black px-1.5 py-0.5 rounded shadow-xl z-50 uppercase"
+                className="absolute bottom-[2%] left-[activePoint.x%] -translate-x-1/2 bg-white text-black text-[10px] font-black px-1.5 py-0.5 rounded shadow-xl z-50 uppercase"
                 style={{ left: `${activePoint.x}%` }}
               >
                 {Math.round(activePoint.visibility_gap * 100)}% Gap
               </motion.div>
               <motion.div 
                 initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}
-                className="absolute left-[1%] top-[activePoint.y%] -translate-y-1/2 bg-[var(--accent-cyan)] text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-xl z-50"
+                className="absolute left-[1%] top-[activePoint.y%] -translate-y-1/2 bg-[var(--accent-cyan)] text-white text-[10px] font-black px-1.5 py-0.5 rounded shadow-xl z-50"
                 style={{ top: `${activePoint.y}%` }}
               >
                 {activePoint.sentiment_delta > 0 ? '+' : ''}{activePoint.sentiment_delta.toFixed(1)} Edge
@@ -115,25 +115,25 @@ export function BattlefieldQuadrant({ data }: BattlefieldQuadrantProps) {
           
           {/* AXIS LABELS */}
           <div className="absolute bottom-6 right-10 flex items-center gap-1 text-white/60 z-20">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Visibility Gap →</span>
+            <span className="text-xs font-black uppercase tracking-[0.2em]">Visibility Gap →</span>
           </div>
           <div className="absolute left-2 top-10 flex flex-col items-center gap-1 text-white/60 z-20">
             <ChevronUp size={12} className="text-[var(--color-success)]" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] vertical-text py-2">Sentiment Advantage</span>
+            <span className="text-xs font-black uppercase tracking-[0.2em] vertical-text py-2">Sentiment Advantage</span>
           </div>
         </div>
 
         {/* QUADRANT LABELS */}
         <div className="absolute top-10 right-10 flex flex-col items-end opacity-40 z-10 pointer-events-none">
           <div className="flex items-center gap-2 text-[var(--accent)] drop-shadow-sm">
-            <span className="text-[11px] font-black uppercase tracking-[0.2em]">Vulnerable Giants</span>
+            <span className="text-xs font-black uppercase tracking-[0.2em]">Vulnerable Giants</span>
             <Target size={14} />
           </div>
         </div>
         <div className="absolute top-10 left-16 flex flex-col items-start opacity-40 z-10 pointer-events-none">
           <div className="flex items-center gap-2 text-[var(--color-success)] drop-shadow-sm">
             <Zap size={14} />
-            <span className="text-[11px] font-black uppercase tracking-[0.2em]">Niche Leaders</span>
+            <span className="text-xs font-black uppercase tracking-[0.2em]">Niche Leaders</span>
           </div>
         </div>
 
@@ -185,7 +185,7 @@ export function BattlefieldQuadrant({ data }: BattlefieldQuadrantProps) {
                     (!isHigh && !isMed) ? "bg-white/40" : (point.sentiment_delta > 0 ? "bg-emerald-400" : "bg-red-500")
                   )} />
 
-                  <span className="text-[10px] font-black text-center px-2 truncate uppercase pointer-events-none">
+                  <span className="text-xs font-black text-center px-2 truncate uppercase pointer-events-none">
                     {point.competitor_name.split(' ')[0]}
                   </span>
 
@@ -205,21 +205,21 @@ export function BattlefieldQuadrant({ data }: BattlefieldQuadrantProps) {
                         <div className="text-[12px] font-black text-white mb-3 flex items-center justify-between">
                           <span className="truncate mr-2">{point.competitor_name}</span>
                           <span className={cn(
-                            "px-2 py-0.5 rounded-full text-[8px] font-black tracking-widest uppercase",
+                            "px-2 py-0.5 rounded-full text-[10px] font-black tracking-widest uppercase",
                             isHigh ? "bg-[var(--accent)] text-white" : isMed ? "bg-orange-500 text-white" : "bg-white/20 text-white"
                           )}>
                             {point.priority}
                           </span>
                         </div>
                         <div className="space-y-3">
-                          <div className="flex justify-between items-center text-[10px] font-bold">
-                            <span className="text-white/50 uppercase tracking-tighter">Displacement Opp</span>
+                          <div className="flex justify-between items-center text-xs font-bold">
+                            <span className="text-white/50 uppercase tracking-tighter">Strategic Opportunity</span>
                             <span className="text-[var(--accent-cyan)] font-mono">{Math.round(point.displacement_score * 100)}%</span>
                           </div>
                           <div className="flex justify-between items-center bg-white/5 p-2 rounded-lg border border-white/5">
-                            <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Sentiment Edge</span>
+                            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Sentiment Edge</span>
                             <span className={cn(
-                              "text-[10px] font-black font-mono px-2 py-0.5 rounded",
+                              "text-xs font-black font-mono px-2 py-0.5 rounded",
                               point.sentiment_delta > 0 ? "text-emerald-400 bg-emerald-500/10" : "text-[var(--accent)] bg-[var(--accent)]/10"
                             )}>
                               {point.sentiment_delta > 0 ? '+' : ''}{point.sentiment_delta.toFixed(1)}
@@ -240,9 +240,9 @@ export function BattlefieldQuadrant({ data }: BattlefieldQuadrantProps) {
       <div className="mt-4 px-2 py-3 bg-[var(--color-surface-container-low)]/40 rounded-xl border border-[var(--line)]/5">
         <div className="flex items-center gap-3 mb-1">
           <TrendingUp size={12} className="text-[var(--accent)]" />
-          <span className="text-[10px] font-black text-[var(--ink)] uppercase tracking-[0.2em]">Displacement Formula</span>
+          <span className="text-xs font-black text-[var(--ink)] uppercase tracking-[0.2em]">Competitive Index Formula</span>
         </div>
-        <p className="text-[9px] font-mono text-[var(--ink-muted)] leading-relaxed uppercase tracking-wider">
+        <p className="text-[10px] font-mono text-[var(--ink-muted)] leading-relaxed uppercase tracking-wider">
           Score = [(Visibility Gap × 0.45) + (Sentiment Advantage × 0.35) + (Brand Contextual Relevance × 0.20)]
         </p>
       </div>

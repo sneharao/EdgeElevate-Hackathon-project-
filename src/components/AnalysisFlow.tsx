@@ -33,7 +33,7 @@ const PIPELINE_STAGES = [
   {
     id: 'compute_displacement_scores',
     label: 'Analyzing Gaps',
-    activeLabel: 'Computing displacement scores...',
+    activeLabel: 'Computing competitive opportunity scores...',
     icon: Cpu,
     isParallel: true,
     parallelHint: '3 parallel analyses',

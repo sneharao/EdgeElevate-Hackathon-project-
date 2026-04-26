@@ -512,6 +512,77 @@ body {
   }
 }
 
+/* Pipeline Flow Styles */
+@keyframes flow-pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes data-flow {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200%);
+    opacity: 0;
+  }
+}
+
+.pipeline-edge-active {
+  position: relative;
+  overflow: hidden;
+}
+
+.pipeline-edge-active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: data-flow 1.5s ease-in-out infinite;
+}
+
+.pipeline-node-glow {
+  box-shadow:
+    0 0 20px rgba(173, 198, 255, 0.3),
+    0 0 40px rgba(173, 198, 255, 0.1);
+}
+
+/* Parallel branch visual */
+.parallel-branch-indicator {
+  position: relative;
+}
+
+.parallel-branch-indicator::before,
+.parallel-branch-indicator::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 8px;
+  background: var(--accent);
+  opacity: 0.6;
+  border-radius: 1px;
+}
+
+.parallel-branch-indicator::before {
+  top: -10px;
+  transform: translateX(-50%);
+}
+
+.parallel-branch-indicator::after {
+  bottom: -10px;
+  transform: translateX(-50%);
+}
+
 /* Error State */
 .error-container {
   background: rgba(255, 180, 171, 0.1);
@@ -713,4 +784,25 @@ body {
   --tw-prose-headings: #e2e2e2;
   --tw-prose-bold: #e2e2e2;
   --tw-prose-links: #adc6ff;
+}
+
+/* Dashboard Section Utilities */
+.dashboard-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-section > .glass-panel:last-child {
+  flex: 1;
+}
+
+/* Consistent empty state styling */
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  color: var(--ink-dim);
+  font-size: 12px;
+  font-style: italic;
 }

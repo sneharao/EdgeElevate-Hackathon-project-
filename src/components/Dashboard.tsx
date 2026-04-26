@@ -1,14 +1,34 @@
-import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import { Linkedin, Zap } from 'lucide-react';
-import {
-  SentimentChart,
-  FeatureMatrix,
-  KeywordFrequency
-} from './Charts';
+import React from "react";
+import { Linkedin, Zap, Play, Video } from "lucide-react";
+import { SentimentChart, KeywordFrequency } from "./Charts";
+import { BattlefieldQuadrant } from "./charts/BattlefieldQuadrant";
+import { SourceGapList } from "./charts/SourceGapList";
+import { ShareOfVoicePie } from "./charts/ShareOfVoicePie";
+import { OpportunityTreemap } from "./charts/OpportunityTreemap";
+import { VisibilityBars } from "./charts/VisibilityBars";
+import { AINarrative } from "./AINarrative";
+import type { EdgeElevateResponse } from "../types/edgeElevate";
 
-export function Dashboard({ data }: { data: any }) {
-  const { research, sentiment, insights, content, startupName } = data;
+export function Dashboard({ data }: { data: EdgeElevateResponse }) {
+  const [expandedPost, setExpandedPost] = React.useState<number | null>(null);
+  const {
+    startup_name,
+    brand_report = [],
+    own_brand = { id: "", name: "" },
+    competitor_brands = [],
+    competitive_displacement_scores = [],
+    source_gap_map = {
+      missing_high_authority: [],
+      present_low_impact: [],
+      competitive_battlegrounds: [],
+      untapped_channels: [],
+    },
+    content_opportunities = [],
+    narrative_analysis,
+    positioning_statement,
+    linkedin_posts = [],
+    video_script,
+  } = data;
 
   return (
     <div className="w-full min-h-screen landing-bg text-[var(--ink)] font-sans flex flex-col overflow-hidden">
@@ -16,164 +36,189 @@ export function Dashboard({ data }: { data: any }) {
       <header className="dashboard-header flex items-center justify-between px-8 shrink-0 z-10 transition-all">
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 bg-gradient-to-br from-[var(--accent)] to-[var(--accent-cyan)] rounded-xl flex items-center justify-center shadow-lg glow-primary">
-            <Zap className="text-[var(--color-on-primary)]" size={18} fill="currentColor" />
+            <Zap
+              className="text-[var(--color-on-primary)]"
+              size={18}
+              fill="currentColor"
+            />
           </div>
           <div>
             <h1 className="text-xl font-light tracking-tight text-[var(--ink)]">
-              EdgeElevate <span className="text-[var(--ink-muted)] font-thin">/ Engine Orchestration</span>
+              EdgeElevate{" "}
+              <span className="text-[var(--ink-muted)] font-thin">
+                / Engine Orchestration
+              </span>
             </h1>
           </div>
         </div>
         <div className="flex items-center gap-6 text-[10px] uppercase font-mono tracking-widest">
           <div className="flex items-center gap-2 px-3 py-1 surface-1 rounded-full">
             <span className="status-dot status-dot-primary status-dot-pulse"></span>
-            <span className="text-[var(--ink-muted)]">Displacement Solver Active</span>
+            <span className="text-[var(--ink-muted)]">
+              Displacement Solver Active
+            </span>
           </div>
-          <button className="btn-primary px-6 py-2 rounded-xl normal-case tracking-normal cursor-pointer">
-            Download Dossier
-          </button>
         </div>
       </header>
 
       {/* Main Dashboard Grid */}
-      <main className="flex-1 grid grid-cols-12 gap-6 p-6 overflow-hidden">
-
-        {/* Column 1: Core Research (3 cols) */}
-        <section className="col-span-12 lg:col-span-3 space-y-6 overflow-y-auto pr-2">
-          <div className="glass-panel rounded-lg p-6">
-            <label className="label-md text-[var(--ink-muted)] mb-4 block">Target Identity</label>
-            <div className="text-3xl font-light text-[var(--ink)] mb-2">{startupName}</div>
-            <div className="tag-primary inline-block px-2 py-0.5 text-[10px] rounded font-mono uppercase mb-4 tracking-tighter">
-              {research?.industry || "Market Disruptor"}
+      <main className="flex-1 grid grid-cols-12 gap-5 p-6 overflow-hidden">
+        {/* Left Column: Context & Opps (3 cols) */}
+        <section className="col-span-12 lg:col-span-3 flex flex-col gap-5 overflow-y-auto pr-2">
+          <div className="glass-panel rounded-lg p-5">
+            <label className="label-md text-[var(--ink-muted)] mb-3 block text-[10px] uppercase tracking-widest">
+              Analyzed Target Identity
+            </label>
+            <div className="text-2xl font-light text-[var(--ink)] mb-3">
+              {startup_name}
             </div>
-            <p className="quote-block text-xs text-[var(--ink-dim)] leading-relaxed italic">
-              "We've identified critical structural vulnerabilities in {startupName}'s core business model."
+            <p className="quote-block text-sm text-[var(--ink-dim)] leading-relaxed italic border-l-2 border-[var(--accent)] pl-4">
+              "{positioning_statement || `Analyzing competitive landscape for ${startup_name}`}"
             </p>
           </div>
 
-          <div className="glass-panel rounded-lg p-6">
-            <label className="label-md text-[var(--ink-muted)] block mb-4">Competitor Topology</label>
-            <div className="space-y-4">
-              {research?.competitors?.map((c: any, i: number) => (
-                <div key={i} className="competitor-item flex justify-between items-center cursor-default">
-                  <div className="flex items-center gap-3">
-                    <div className="competitor-avatar flex items-center justify-center text-[10px] font-bold text-[var(--ink-muted)]">
-                      {c.name[0]}
+          <div className="glass-panel rounded-lg p-5">
+            <label className="label-md text-[var(--ink-muted)] mb-4 block text-[10px] uppercase tracking-widest">
+              Content Opportunities
+            </label>
+            <div className="space-y-3">
+              {content_opportunities?.slice(0, 3).map((opp, i) => (
+                <div
+                  key={i}
+                  className="p-3 surface-1 rounded-lg border-l-2 border-[var(--accent-cyan)]/40"
+                >
+                  <p className="text-xs font-medium text-[var(--ink)] mb-1">{opp.title}</p>
+                  <p className="text-[10px] text-[var(--ink-dim)] line-clamp-2">{opp.topic}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Sources to Focus On - Moved here */}
+          <div className="glass-panel rounded-lg p-5 flex flex-col flex-1 min-h-[300px]">
+            <label className="label-md text-[var(--ink-muted)] mb-3 block text-[10px] uppercase tracking-widest">
+              Sources to Focus On
+            </label>
+            <div className="flex-1 overflow-y-auto pr-1 custom-scrollbar">
+              <SourceGapList
+                data={source_gap_map?.missing_high_authority || []}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Right Section: Strategic View & Details (9 cols) */}
+        <section className="col-span-12 lg:col-span-9 flex flex-col gap-5 overflow-y-auto pr-2">
+          {/* Top: Wide Battlefield Quadrant */}
+          <div className="glass-panel rounded-lg p-5 h-[480px] flex flex-col shrink-0">
+            <div className="flex justify-between items-center mb-4">
+              <label className="label-md text-[var(--ink-muted)] block uppercase tracking-widest text-[10px]">
+                Market Battlefield Quadrant
+              </label>
+              <div className="tag-primary text-[10px] font-mono px-2 py-0.5 rounded shadow-sm glow-primary">
+                STRATEGIC_MAPPING
+              </div>
+            </div>
+            <div className="flex-1 relative">
+              {competitive_displacement_scores.length > 0 ? (
+                <BattlefieldQuadrant data={competitive_displacement_scores} />
+              ) : (
+                <div className="h-full flex items-center justify-center text-xs text-[var(--ink-dim)] italic">
+                  Insufficient data for strategic mapping
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* AI Narrative Section */}
+          {narrative_analysis && (
+            <AINarrative data={narrative_analysis} brandName={startup_name} />
+          )}
+
+          {/* Bottom Grid: Social and Video (Balanced) */}
+          <div className="grid grid-cols-12 gap-5 h-[400px] shrink-0">
+            {/* HERA Video Engine */}
+            <div className="col-span-6 glass-panel rounded-lg p-5 flex flex-col">
+              <label className="label-md text-[var(--ink-muted)] mb-3 block text-[10px] uppercase tracking-widest">
+                HERA Visual Narrative
+              </label>
+              <div className="video-placeholder aspect-video rounded-lg overflow-hidden relative group cursor-pointer mb-3 shrink-0">
+                <div className="absolute inset-0 flex items-center justify-center bg-[var(--accent)]/5 group-hover:bg-[var(--accent)]/10 transition-colors">
+                  <div className="video-play-button flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 transition-all glow-primary">
+                    <Zap className="text-[var(--accent)]" size={24} />
+                  </div>
+                </div>
+              </div>
+              <div className="surface-1 rounded-lg p-3 overflow-y-auto flex-1 mb-3">
+                {video_script && !("parse_error" in video_script) ? (
+                  <div className="space-y-2">
+                    <h3 className="text-xs font-semibold text-[var(--ink)]">{video_script.title}</h3>
+                    <p className="text-[10px] text-[var(--ink-dim)]">{video_script.description}</p>
+                  </div>
+                ) : (
+                  <div className="text-[10px] text-[var(--ink-dim)] italic">Synthesizing narrative flow...</div>
+                )}
+              </div>
+              <button className="btn-primary py-2 rounded-lg text-xs w-full flex items-center justify-center gap-2">
+                <Video size={14} />
+                Generate Video
+              </button>
+            </div>
+
+            {/* Social Feed */}
+            <div className="col-span-6 glass-panel rounded-lg p-5 flex flex-col overflow-hidden">
+              <label className="label-md text-[var(--ink-muted)] mb-3 block text-[10px] uppercase tracking-widest">
+                Social Feed Ideas
+              </label>
+              <div className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+                {linkedin_posts.map((post, i) => {
+                  const isExpanded = expandedPost === i;
+                  return (
+                    <div 
+                      key={i} 
+                      className={`social-post-card p-3 surface-1 rounded-lg border transition-all duration-300 cursor-pointer relative group ${
+                        isExpanded ? 'border-[var(--accent)]/40 bg-[var(--accent)]/5 shadow-lg' : 'border-[var(--line)]/10 hover:border-[var(--line)]/30'
+                      }`}
+                      onClick={() => setExpandedPost(isExpanded ? null : i)}
+                    >
+                      <div className="absolute top-3 right-3 p-1 rounded bg-[var(--accent-cyan)]/10 text-[var(--accent-cyan)]">
+                        <Linkedin size={10} />
+                      </div>
+                      <div className="flex justify-between items-center mb-2 pr-6">
+                        <span className="text-[9px] font-mono text-[var(--accent)]">NODE_{i + 1}</span>
+                      </div>
+                      <p className="text-[11px] font-bold text-[var(--ink)] mb-2">{post.hook}</p>
+                      <p className={`text-[10px] text-[var(--ink-dim)] leading-relaxed transition-all duration-300 ${
+                        isExpanded ? '' : 'line-clamp-3'
+                      }`}>
+                        {post.body}
+                      </p>
+                      <div className="mt-2 flex justify-end">
+                        <span className="text-[9px] font-bold text-[var(--accent)] uppercase tracking-wider flex items-center gap-1">
+                          {isExpanded ? 'Show less' : 'Read more'}
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-xs font-medium text-[var(--ink)]">{c.name}</span>
-                  </div>
-                  <div className="competitor-progress">
-                    <div className="competitor-progress-fill" style={{ width: `${Math.random() * 60 + 40}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="glass-panel rounded-lg p-6">
-            <div className="label-md text-[var(--ink-muted)] mb-6">Sentiment Spectrum</div>
-            <div className="h-[200px]">
-              <SentimentChart data={sentiment || {}} />
-            </div>
-            <div className="flex justify-between mt-6 pt-4 border-t border-[var(--line)]/50 text-[10px] text-[var(--ink-muted)] font-mono">
-              <span className="uppercase">User Friction</span>
-              <span className="text-[var(--color-error)] font-bold">Trend Elevated</span>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
-
-        {/* Column 2: Displacement Matrix (5 cols) */}
-        <section className="col-span-12 lg:col-span-5 space-y-6 overflow-y-auto pr-2">
-          <div className="glass-panel rounded-lg p-8">
-            <div className="flex justify-between items-center mb-6">
-              <label className="label-md text-[var(--ink-muted)] block">Defensive Gap Analysis</label>
-              <div className="tag-primary text-[10px] font-mono px-2 py-0.5 rounded">v2.4_SOLVER</div>
-            </div>
-            <div className="aspect-[4/3] w-full relative">
-              <FeatureMatrix competitors={research?.competitors || []} />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="glass-panel rounded-lg p-6 card-accent-primary">
-              <div className="label-md text-[var(--ink-muted)] mb-3">Winning Narrative</div>
-              <p className="text-sm text-[var(--ink)] leading-relaxed italic">
-                "{insights?.differentiationAngle || "Displacing legacy monoliths with modular intelligence."}"
-              </p>
-            </div>
-            <div className="glass-panel rounded-lg p-6 card-accent-success">
-              <div className="label-md text-[var(--ink-muted)] mb-3">Growth Vector</div>
-              <p className="text-xs text-[var(--ink-dim)] leading-relaxed">
-                {insights?.opportunities?.[0] || "Analysis identifies significant overhead reduction through decentralized infrastructure."}
-              </p>
-            </div>
-          </div>
-
-          <div className="glass-panel rounded-lg p-8">
-            <label className="label-md text-[var(--ink-muted)] mb-6 block">Target Review Themes (Semantic)</label>
-            <div className="h-[280px]">
-              <KeywordFrequency themes={sentiment?.topThemes || ['Innovation', 'Scale', 'UX', 'Legacy', 'Support']} />
-            </div>
-          </div>
-        </section>
-
-        {/* Column 3: HERA Content Output (4 cols) */}
-        <section className="col-span-12 lg:col-span-4 space-y-6 overflow-y-auto pr-2">
-          <div className="glass-panel rounded-lg p-6 overflow-hidden flex flex-col">
-            <label className="label-md text-[var(--ink-muted)] mb-6 block">HERA Visual Narrative Engine</label>
-            <div className="video-placeholder aspect-video rounded-lg overflow-hidden relative group cursor-pointer mb-6">
-              <div className="absolute inset-0 flex items-center justify-center bg-[var(--accent)]/5 group-hover:bg-[var(--accent)]/10 transition-colors">
-                <div className="video-play-button flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 transition-all glow-primary">
-                  <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-[var(--accent)] border-b-[10px] border-b-transparent"></div>
-                </div>
-              </div>
-              <div className="absolute top-4 left-4 flex items-center gap-2 px-2 py-1 surface-1 backdrop-blur rounded-lg">
-                <div className="status-dot status-dot-error animate-pulse"></div>
-                <div className="text-[10px] text-[var(--ink-muted)] font-mono font-bold">SIM_ACTIVE</div>
-              </div>
-              <div className="absolute bottom-4 left-4">
-                <div className="tag-primary text-[10px] px-3 py-1.5 rounded-lg font-bold uppercase font-mono tracking-widest">CEO_SCRIPT_DRAFTER</div>
-              </div>
-            </div>
-            <div className="flex-1 surface-1 rounded-lg p-4 overflow-y-auto max-h-[300px]">
-              <div className="markdown-content">
-                <ReactMarkdown>{content?.videoScript || "Synthesizing executive narrative flow..."}</ReactMarkdown>
-              </div>
-            </div>
-          </div>
-
-          <div className="glass-panel rounded-lg p-6 flex flex-col h-[500px]">
-            <div className="flex justify-between items-center mb-6">
-              <label className="label-md text-[var(--ink-muted)] block">Social Displacement Feed</label>
-              <Linkedin size={18} className="text-[var(--accent-cyan)]" />
-            </div>
-            <div className="flex-1 overflow-y-auto space-y-6 pr-2">
-              {content?.linkedInPosts?.map((post: any, i: number) => (
-                <div key={i} className="social-post-card">
-                  <div className="text-[10px] font-mono text-[var(--accent)] font-bold uppercase tracking-widest mb-4 flex justify-between items-center">
-                    <span>Node_{i + 1}</span>
-                    <span className="tag-secondary px-2 py-0.5 rounded uppercase text-[9px] font-normal tracking-normal">
-                      {i === 0 ? 'INSIGHT' : 'FOUNDER'} Post
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-[var(--ink-dim)] leading-relaxed whitespace-pre-wrap">{post}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
       </main>
 
       {/* Status Bar */}
       <footer className="dashboard-footer flex items-center px-8 text-[10px] text-[var(--ink-muted)] justify-between font-mono tracking-widest shrink-0 z-10">
         <div className="flex gap-8">
-          <span className="flex items-center gap-2"><div className="status-dot status-dot-primary" /> ENGINE_VER: EDGE_ELEVATE_X_2.4</span>
-          <span className="flex items-center gap-2"><div className="status-dot status-dot-success" /> DATA_SOURCE: G2_FEDERATED</span>
+          <span className="flex items-center gap-2">
+            <div className="status-dot status-dot-primary" /> ENGINE_VER: EDGE_ELEVATE_X_2.4
+          </span>
         </div>
         <div className="flex gap-8 uppercase">
           <span className="text-[var(--line)]">BETA_INTERNAL_SCRAPE</span>
-          <span className="flex items-center gap-2 text-[var(--ink)]"><div className="status-dot status-dot-primary status-dot-pulse" /> SOLVER_ONLINE</span>
+          <span className="flex items-center gap-2 text-[var(--ink)]">
+            <div className="status-dot status-dot-primary status-dot-pulse" /> SOLVER_ONLINE
+          </span>
         </div>
       </footer>
     </div>

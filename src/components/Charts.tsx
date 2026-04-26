@@ -5,10 +5,14 @@ import {
 } from 'recharts';
 
 export function SentimentChart({ data }: { data: any }) {
+  const positive = data.positiveRatio || 0;
+  const negative = data.negativeRatio || 0;
+  const neutral = positive === 0 && negative === 0 ? 100 : Math.max(0, 100 - positive - negative);
+
   const chartData = [
-    { name: 'Positive', value: data.positiveRatio || 65, color: 'var(--chart-success)' },
-    { name: 'Negative', value: data.negativeRatio || 20, color: 'var(--chart-error)' },
-    { name: 'Neutral', value: 100 - (data.positiveRatio || 65) - (data.negativeRatio || 20), color: 'var(--chart-outline)' },
+    { name: 'Positive', value: positive, color: 'var(--chart-success)' },
+    { name: 'Negative', value: negative, color: 'var(--chart-error)' },
+    { name: 'Neutral', value: neutral, color: 'var(--chart-outline)' },
   ];
 
   return (

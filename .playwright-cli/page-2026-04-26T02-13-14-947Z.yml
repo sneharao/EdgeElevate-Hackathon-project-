@@ -1,0 +1,30 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - img [ref=e7]
+    - heading "EdgeElevate / displacement engine" [level=1] [ref=e9]
+  - generic [ref=e11]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - img [ref=e16]
+        - textbox "TARGET STARTUP OR BRAND" [ref=e19]
+      - button "RUN_SOLVER" [disabled] [ref=e20]:
+        - text: RUN_SOLVER
+        - img [ref=e21]
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e27]: Engine Online
+        - generic [ref=e30]: Tracing v2.0 Active
+      - generic [ref=e31]: BETA_RELEASE
+  - generic [ref=e32]:
+    - paragraph [ref=e33]: Quick Analysis Nodes
+    - generic [ref=e34]:
+      - button "NOTHING" [ref=e35] [cursor=pointer]
+      - button "ATTIO" [ref=e36] [cursor=pointer]
+      - button "BYD" [ref=e37] [cursor=pointer]
+      - button "LINEAR" [ref=e38] [cursor=pointer]
+      - button "FIGMA" [ref=e39] [cursor=pointer]
+      - button "STRIPE" [ref=e40] [cursor=pointer]
+  - generic [ref=e41]:
+    - generic [ref=e42]: G2_FEDERATED
+    - generic [ref=e43]: SCRAPE_NODES_LIVE
+    - generic [ref=e44]: Q_CONTEXT_V4

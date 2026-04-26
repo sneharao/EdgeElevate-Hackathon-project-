@@ -8,50 +8,43 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Search, Zap, ArrowRight } from 'lucide-react';
 import { AnalysisFlow } from './components/AnalysisFlow';
 import { Dashboard } from './components/Dashboard';
+import { streamEdgeElevateAnalysis } from './services/edgeElevateApi';
+import type { EdgeElevateResponse } from './types/edgeElevate';
 
 export default function App() {
   const [startupName, setStartupName] = useState('');
   const [status, setStatus] = useState<'idle' | 'analyzing' | 'complete'>('idle');
-  const [currentStep, setCurrentStep] = useState<string>('research');
-  const [resultData, setResultData] = useState<any>(null);
+  const [currentStep, setCurrentStep] = useState<string>('resolve_project');
+  const [resultData, setResultData] = useState<EdgeElevateResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const startAnalysis = async (e: React.FormEvent) => {
+  const startAnalysis = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!startupName) return;
 
     setStatus('analyzing');
-    setCurrentStep('research');
+    setCurrentStep('resolve_project');
     setError(null);
 
-    const steps = ['research', 'sentiment', 'insights', 'content'];
-
     try {
-      const timer = setInterval(() => {
-        setCurrentStep(prev => {
-          const idx = steps.indexOf(prev);
-          if (idx < steps.length - 1) return steps[idx + 1];
-          return prev;
-        });
-      }, 5000);
+      const cleanup = streamEdgeElevateAnalysis(
+        startupName,
+        (stepUpdate) => {
+          setCurrentStep(stepUpdate.step);
+        },
+        (result) => {
+          setResultData(result);
+          setCurrentStep('complete');
+          setTimeout(() => setStatus('complete'), 500);
+        },
+        (err) => {
+          console.error('Analysis error:', err);
+          setError(err.message);
+          setStatus('idle');
+        }
+      );
 
-      const response = await fetch('/api/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ startupName }),
-      });
-
-      if (!response.ok) {
-        const err = await response.json();
-        throw new Error(err.error || 'Analysis failed');
-      }
-
-      const data = await response.json();
-      clearInterval(timer);
-      setResultData(data);
-      setCurrentStep('complete');
-      setTimeout(() => setStatus('complete'), 500);
-
+      return () => cleanup();
     } catch (err: any) {
       setError(err.message);
       setStatus('idle');
@@ -137,11 +130,30 @@ export default function App() {
               </form>
             </motion.div>
 
+            {/* Error Display */}
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-12 max-w-2xl w-full"
+              >
+                <div className="glass-panel-elevated border border-red-500/20 rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-red-500 rounded-full mt-1.5"></div>
+                    <div className="flex-1">
+                      <p className="text-xs font-mono text-red-400 uppercase tracking-wider mb-2">Pipeline Error</p>
+                      <p className="text-sm text-[var(--ink)] font-mono">{error}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
             {/* Example links */}
             <div className="mt-32 space-y-6 text-center">
               <p className="text-[10px] text-[var(--ink-muted)] font-mono uppercase tracking-[0.4em]">Quick Analysis Nodes</p>
               <div className="flex flex-wrap justify-center gap-8">
-                {['NOTHING', 'ATTIO', 'BYD', 'LINEAR', 'FIGMA', 'STRIPE'].map((name) => (
+                {['NOTHING', 'ATTIO', 'REVOLUT', 'BMW', 'MINDSPACE', 'LEGORA'].map((name) => (
                   <button
                     key={name}
                     onClick={() => setStartupName(name)}
@@ -153,12 +165,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Status Footer */}
-            <div className="absolute bottom-12 flex gap-12 text-[10px] text-[var(--line)] font-mono uppercase tracking-[0.5em]">
-              <span className="hover:text-[var(--ink-muted)] cursor-default transition-colors">G2_FEDERATED</span>
-              <span className="hover:text-[var(--ink-muted)] cursor-default transition-colors">SCRAPE_NODES_LIVE</span>
-              <span className="hover:text-[var(--ink-muted)] cursor-default transition-colors">Q_CONTEXT_V4</span>
-            </div>
           </motion.div>
         )}
 
@@ -168,9 +174,11 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-screen flex items-center justify-center landing-bg p-6"
+            className="min-h-screen flex items-center justify-center landing-bg"
           >
-            <AnalysisFlow currentStep={currentStep} error={error} />
+            <div className="w-full">
+              <AnalysisFlow currentStep={currentStep} error={error} />
+            </div>
           </motion.div>
         )}
 
